@@ -41,7 +41,7 @@ public class CustomerController {
 	
 	/* ------------ users related resources ----------*/
 	
-	@PutMapping("/update-user")  // by admin and user both
+	@PutMapping("/update-user")  // by admin and user both  //http://localhost:8085/triv/auth/users/update-user
 	public ResponseEntity<Users> updateUserDetailsHandler(@Valid @RequestBody Users user) {
 		
 		Users updatedAdmin = usersService.updateUserDetails(user);
@@ -53,7 +53,7 @@ public class CustomerController {
 	/* ------------ carts related resources ----------*/
 	
 	
-	@PutMapping("/addProduct-to-cart/{productId}/{quantity}")
+	@PutMapping("/addProduct-to-cart/{productId}/{quantity}")  //http://localhost:8085/triv/users/addProduct-to-cart/{productId}/{quantity}
 	public ResponseEntity<Cart> addProductToCartSpecificUserHandler(@PathVariable Integer productId,@PathVariable Integer quantity,Authentication auth) {
 		
 		Users user = usersService.getUserByEmail(auth.getName());
@@ -64,7 +64,7 @@ public class CustomerController {
 	}
 	
 	
-	@DeleteMapping("/deleteProduct-from-cart/{productId}")
+	@DeleteMapping("/deleteProduct-from-cart/{productId}")  //http://localhost:8085/triv/users/addProduct-to-cart/{productId}/{quantity}
 	public ResponseEntity<Cart> deleteProductToCartOfSpecificUserHandler(@PathVariable Integer productId,Authentication auth) {
 		
 		Users user = usersService.getUserByEmail(auth.getName());
@@ -75,7 +75,7 @@ public class CustomerController {
 	}
 	
 	
-	@GetMapping("/getAllProducts-from-cart")
+	@GetMapping("/getAllProducts-from-cart") //http://localhost:8085/triv/users/getAllProducts-from-cart
 	public ResponseEntity<Cart> retriveAllProductsOfCartOfSpecificUserHandler(Authentication auth) {
 		
 		Users user = usersService.getUserByEmail(auth.getName());
@@ -85,7 +85,7 @@ public class CustomerController {
 		return new ResponseEntity<Cart>(cart,HttpStatus.OK);
 	}
 	
-	@PutMapping("/update-quantity-of-product-in-cart/{quantity}")
+	@PutMapping("/update-quantity-of-product-in-cart/{quantity}") //http://localhost:8085/triv/users/update-quantity-of-product-in-cart/{quantity}
 	public ResponseEntity<Cart>  updateQuantityFormCartSpecificUserHandler(@PathVariable Integer quantity,Authentication auth) {
 		
 		Users user = usersService.getUserByEmail(auth.getName());
