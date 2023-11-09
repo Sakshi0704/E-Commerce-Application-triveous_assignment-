@@ -40,7 +40,9 @@
 ````
 
 ## API Endpoints
-  ### Public URLs
+  ### Public URLs 
+  Public URLs are accessible to anyone, including users who are not authenticated. These URLs typically include endpoints for general information or actions that do not require user-specific or privileged data. In an e-commerce application, public URLs could be used for features like user registration, fetching product details, or retrieving general information that doesn't depend on the user's identity.
+  
         POST /triv/auth/users/signup :- User registration
         POST /triv/auth/admins/signup   :- Admin registration
         GET /triv/public/all-categories :- Get all categories
@@ -49,16 +51,22 @@
         GET /triv/public/all-products   :-  Get all products
 
   ### User and Admin URLs
+  User and Admin URLs represent endpoints that require authentication and are categorized based on the user role—either user or admin. These URLs often involve actions related to user accounts, authentication, or other operations that require a certain level of privilege.
+  
         POST /triv/auth/users/signin :- User authentication
         POST /triv/auth/admins/signin   :- Admin authentication
         PUT /triv/auth/users/update-user    :- Update user information
 
   ### User URLs
+  User URLs are designed for actions and features that regular authenticated users can access. These URLs often involve operations that are relevant to individual user accounts, such as managing their shopping cart, viewing order history, or updating personal information.
+  
         POST /triv/users/addProduct-to-cart/{productId}/{quantity} :- Add a product to the cart
         GET /triv/users/getAllProducts-from-cart :- Get all products from the cart
         PUT /triv/users/update-quantity-of-product-in-cart/{quantity} :- Update quantity of a product in the cart
 
    ### Admin URLs
+   Admin URLs are designed for users with administrative privileges. These endpoints typically involve actions that are reserved for administrators, such as managing users, adding new categories, or saving new products.
+   
         DELETE /triv/admins/delete-user :- Delete a user
         POST /triv/admins/save-category :- Save a new category
         POST /triv/admins/save-product :- Save a new product
