@@ -37,10 +37,18 @@ public class SecurityConfiguration {
 						};
 	
 	
+	//http://localhost:8085/triv/auth/users/update-user
 	public static final String USER_ADMIN_URLS[] = { "/triv/auth/users/signin",
-												   "/triv/auth/users/update-user"
+												   "/triv/auth/users/update-user"						   
 						};
 	
+	//http://localhost:8085/triv/users/addProduct-to-cart/{productId}/{quantity}
+	//http://localhost:8085/triv/users/getAllProducts-from-cart
+	//http://localhost:8085/triv/users/update-quantity-of-product-in-cart/{quantity}
+	public static final String USER_URLS[] = {"/triv/users/addProduct-to-cart/{productId}/{quantity}",
+											"/triv/users/getAllProducts-from-cart",
+											"/triv/users/update-quantity-of-product-in-cart/{quantity}"
+	};
 	
 	//http://localhost:8085/triv/auth/admins/signin
 	//http://localhost:8085/triv/admins/delete-user
@@ -77,7 +85,8 @@ public class SecurityConfiguration {
 			  .requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 			  .requestMatchers(PUBLIC_URLS).permitAll()
 			  .requestMatchers(ADMIN_URLS).hasRole("ADMIN")
-			  .requestMatchers(USER_ADMIN_URLS).hasAnyRole("ADMIN","USER")  // what is ** is showing PathVeriable -----
+			  .requestMatchers(USER_ADMIN_URLS).hasAnyRole("ADMIN","USER")
+			  .requestMatchers(USER_URLS).hasRole("USER")// what is ** is showing PathVeriable -----
 			  .anyRequest().authenticated();
 		})
 		.csrf(csrf -> csrf.disable())
