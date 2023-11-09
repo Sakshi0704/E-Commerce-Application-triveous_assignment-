@@ -102,7 +102,7 @@ public class AuthenticationController {
 	@GetMapping("/users/signin")
 	public ResponseEntity<Users> loginUserHandler(Authentication auth){
 		
-		Users user = usersService.getCustomerByEmail(auth.getName());
+		Users user = usersService.getUserByEmail(auth.getName());
 		
 		return new ResponseEntity<Users>(user,HttpStatus.OK);			
 	}
@@ -110,7 +110,7 @@ public class AuthenticationController {
 	@GetMapping("/admins/signin")
 	public ResponseEntity<Users> loginAdminHandler(Authentication auth){
 		
-		Users admin = usersService.getCustomerByEmail(auth.getName());
+		Users admin = usersService.getUserByEmail(auth.getName());
 		
 		return new ResponseEntity<Users>(admin,HttpStatus.OK);			
 	}

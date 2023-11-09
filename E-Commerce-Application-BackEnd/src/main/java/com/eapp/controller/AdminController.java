@@ -9,27 +9,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.eapp.model.Users;
 import com.eapp.service.UsersService;
 
 import jakarta.validation.Valid;
 
-
-
 @RestController
-@RequestMapping("/triv/users")
-public class CustomerController {
+@RequestMapping("/triv/admins")
+public class AdminController {
 
 	@Autowired
 	public UsersService usersService;
 	
-	@PutMapping("/update-user")  // by admin and user both
-	public ResponseEntity<Users> updateUserDetailsHandler(@Valid @RequestBody Users user) {
+	@DeleteMapping("delete-user") // by admin
+	public ResponseEntity<Users> deleteUserByEmailHandler(@Valid @RequestBody String email) {
 		
-		Users updatedAdmin = usersService.updateUserDetails(user);
+		 Users deletedAdmin = usersService.deleteUserByEmail(email);
 		
-		return new ResponseEntity<>(updatedAdmin,HttpStatus.ACCEPTED);
+		 return new ResponseEntity<Users>(deletedAdmin,HttpStatus.OK);
+		 
 	}
-	
 	
 }

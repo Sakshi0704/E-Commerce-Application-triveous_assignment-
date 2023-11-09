@@ -14,6 +14,20 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlodalExceptionController {
 
 	
+	@ExceptionHandler(InputInvaildException.class)
+	public ResponseEntity<ErrorDetails> inputInvalidExceptionHandler(InputInvaildException ex, WebRequest wr){
+		
+		ErrorDetails errorDetails = new ErrorDetails();
+		
+		errorDetails.setTimeStamp(LocalDateTime.now());
+		errorDetails.setMessage(ex.getMessage());
+		errorDetails.setDescription(wr.getDescription(false));
+		
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	
 	@ExceptionHandler(DataNotFoundException.class)
 	public ResponseEntity<ErrorDetails> dataNotFoundExceptionHandler(DataNotFoundException ex, WebRequest wr){
 		

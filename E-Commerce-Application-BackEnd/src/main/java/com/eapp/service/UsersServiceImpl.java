@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.eapp.exception.DataNotFoundException;
 import com.eapp.exception.DuplicateEmailException;
+import com.eapp.exception.InputInvaildException;
 import com.eapp.model.Users;
 import com.eapp.repository.UsersRepository;
 
@@ -21,7 +22,7 @@ public class UsersServiceImpl implements UsersService{
 	
 
 	@Override
-	public Users getCustomerByEmail(String email) throws DataNotFoundException {
+	public Users getUserByEmail(String email) throws DataNotFoundException,InputInvaildException {
 		
 		Optional<Users> opt = usersRepo.findByEmail(email);
 		
@@ -34,7 +35,7 @@ public class UsersServiceImpl implements UsersService{
 
 
 	@Override
-	public Users registerUsers(Users user) throws DuplicateEmailException {
+	public Users registerUsers(Users user) throws DuplicateEmailException,InputInvaildException {
 
 		Optional<Users> opt = usersRepo.findByEmail(user.getEmail());
 		
@@ -46,9 +47,40 @@ public class UsersServiceImpl implements UsersService{
 		
 		return user;
 	}
-	
-	
-	
+
+
+	@Override
+	public Users deleteUserByEmail(String email) throws DataNotFoundException,InputInvaildException {
+		
+        if (email == null || email.isEmpty()) {
+            throw new InputInvaildException("Invalid input. Please provide a valid email address.");
+        }
+
+        Optional<Users> opt = usersRepo.findByEmail(email);
+
+        if (opt.isEmpty()) {
+            throw new DataNotFoundException("User with email " + email + " not found.");
+        }
+        
+        Users deletedUser = opt.get();
+        
+        usersRepo.delete(deletedUser);
+        
+        return deletedUser;
+	}
+
+
+	@Override
+	public Users updateUserDetails(Users user) throws DataNotFoundException,InputInvaildException{
+		
+		 if (user == null) {
+	            throw new InputInvaildException("Invalid input. Please provide a valid details of User");
+	        }
+		 
+		 usersRepo.save(user);
+		
+		return user;
+	}
 	
 	
 }

@@ -26,7 +26,8 @@ public class SecurityConfiguration {
 												"/triv/auth/admins/signup",							
 						};
 	
-	public static final String USER_ADMIN_URLS[] = { "/triv/auth/users/signin"
+	public static final String USER_ADMIN_URLS[] = { "/triv/auth/users/signin",
+									"/triv/auth/user/update"
 						};
 	
 	public static final String ADMIN_URLS[] = {"/triv/auth/admins/signin"
