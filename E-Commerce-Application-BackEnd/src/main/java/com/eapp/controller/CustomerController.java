@@ -1,5 +1,7 @@
 package com.eapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eapp.model.Cart;
+import com.eapp.model.Orders;
 import com.eapp.model.Users;
 import com.eapp.service.CartService;
+import com.eapp.service.OrderService;
 import com.eapp.service.UsersService;
 
 import jakarta.validation.Valid;
@@ -28,7 +32,14 @@ public class CustomerController {
 	@Autowired
 	private UsersService usersService;
 	
+	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
+	
+	
+	/* ------------ users related resources ----------*/
 	
 	@PutMapping("/update-user")  // by admin and user both
 	public ResponseEntity<Users> updateUserDetailsHandler(@Valid @RequestBody Users user) {
@@ -37,6 +48,9 @@ public class CustomerController {
 		
 		return new ResponseEntity<>(updatedAdmin,HttpStatus.ACCEPTED);
 	}
+	
+	
+	/* ------------ carts related resources ----------*/
 	
 	
 	@PutMapping("/addProduct-to-cart/{productId}/{quantity}")
@@ -48,8 +62,6 @@ public class CustomerController {
 		
 		return new ResponseEntity<Cart>(cart,HttpStatus.OK);
 	}
-	
-	
 	
 	
 	@DeleteMapping("/deleteProduct-from-cart/{productId}")
@@ -82,4 +94,40 @@ public class CustomerController {
 		
 		return new ResponseEntity<Cart>(cart,HttpStatus.OK);
 	}
+	
+	
+	
+	/* ------------ Orders related resources ----------*/
+	@PutMapping("/placeOrder/{cartId}")
+	public ResponseEntity<Orders> placeOrderFromSepcificUserHandler(@PathVariable Integer cartId,Authentication auth) {
+		
+		Users user = usersService.getUserByEmail(auth.getName());
+		
+		Orders savedOrder = orderService.placeOrderFromSepcificUser(cartId, user.getEmail());
+		
+		return new ResponseEntity<Orders>(savedOrder,HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/get-order/{orderId}")
+	public ResponseEntity<Orders> getOrderByIdFromSepcificUserHandler(@PathVariable Integer orderId,Authentication auth) {
+		
+		Users user = usersService.getUserByEmail(auth.getName());
+		
+		Orders order = orderService.getOrderByIdFromSepcificUser(orderId, user.getEmail());
+		
+		return new ResponseEntity<Orders>(order,HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/get-all-order")
+	public ResponseEntity<List<Orders>> getOrderHistoryOfSepcificUserHandler(Authentication auth) {
+		
+		Users user = usersService.getUserByEmail(auth.getName());
+		
+		List<Orders> orders = orderService.getOrderHistoryOfSepcificUser(user.getEmail());
+		
+		return new ResponseEntity<List<Orders>>(orders,HttpStatus.OK);
+	}
+	
 }

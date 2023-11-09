@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,9 +40,11 @@ public class Orders {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime orderTimeStamp;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Users user;
 
+	@JsonProperty(access = Access.READ_ONLY)
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Cart cart;
 	
