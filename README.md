@@ -1,6 +1,6 @@
 # Triveous E-Commerce Application
  ## Overview
-    This is a small-scale E-Commerce application developed as part of the Triveous hiring process. The application includes four controllers: Admin, Authentication, Customer, and Public. Each controller serves specific functionality and the application works with the following models: User, Product, Order, Category, and Cart.
+ This is a small-scale E-Commerce application developed as part of the Triveous hiring process. The application includes four controllers: Admin, Authentication, Customer, and Public. Each controller serves specific functionality and the application works with the following models: User, Product, Order, Category, and Cart.
 
 ## Tech Stacks
 
