@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.eapp.exception.DataNotFoundException;
 import com.eapp.exception.DuplicateEmailException;
-import com.eapp.exception.InputInvaildException;
 import com.eapp.model.Users;
 import com.eapp.repository.UsersRepository;
 
@@ -22,7 +21,7 @@ public class UsersServiceImpl implements UsersService{
 	
 
 	@Override
-	public Users getUserByEmail(String email) throws DataNotFoundException,InputInvaildException {
+	public Users getUserByEmail(String email) throws DataNotFoundException,IllegalArgumentException {
 		
 		Optional<Users> opt = usersRepo.findByEmail(email);
 		
@@ -35,7 +34,7 @@ public class UsersServiceImpl implements UsersService{
 
 
 	@Override
-	public Users registerUsers(Users user) throws DuplicateEmailException,InputInvaildException {
+	public Users registerUsers(Users user) throws DuplicateEmailException,IllegalArgumentException {
 
 		Optional<Users> opt = usersRepo.findByEmail(user.getEmail());
 		
@@ -50,10 +49,10 @@ public class UsersServiceImpl implements UsersService{
 
 
 	@Override
-	public Users deleteUserByEmail(String email) throws DataNotFoundException,InputInvaildException {
+	public Users deleteUserByEmail(String email) throws DataNotFoundException,IllegalArgumentException {
 		
         if (email == null || email.isEmpty()) {
-            throw new InputInvaildException("Invalid input. Please provide a valid email address.");
+            throw new IllegalArgumentException("Invalid input. Please provide a valid email address.");
         }
 
         Optional<Users> opt = usersRepo.findByEmail(email);
@@ -71,10 +70,10 @@ public class UsersServiceImpl implements UsersService{
 
 
 	@Override
-	public Users updateUserDetails(Users user) throws DataNotFoundException,InputInvaildException{
+	public Users updateUserDetails(Users user) throws DataNotFoundException,IllegalArgumentException{
 		
 		 if (user == null) {
-	            throw new InputInvaildException("Invalid input. Please provide a valid details of User");
+	            throw new IllegalArgumentException("Invalid input. Please provide a valid details of User");
 	        }
 		 
 		 usersRepo.save(user);

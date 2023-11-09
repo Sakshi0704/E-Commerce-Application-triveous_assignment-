@@ -84,8 +84,7 @@ public class AuthenticationController {
 		return new ResponseEntity<Users>(registeredUser, HttpStatus.CREATED);
 	}
 
-	
-	@PostMapping("/admins/signup")
+	@PostMapping("/admins/signup") //http://localhost:8085/triv/auth/admins/signup
 	public ResponseEntity<Users> registerAdminHandler(@Valid @RequestBody Users user) {
 
 		System.out.println("inside the register Admin Handler");
@@ -99,7 +98,13 @@ public class AuthenticationController {
 		return new ResponseEntity<Users>(registeredAdmin, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/users/signin")
+	
+	
+	
+	
+	
+	
+	@GetMapping("/users/signin") //http://localhost:8085/triv/auth/users/signin
 	public ResponseEntity<Users> loginUserHandler(Authentication auth){
 		
 		Users user = usersService.getUserByEmail(auth.getName());
@@ -107,7 +112,7 @@ public class AuthenticationController {
 		return new ResponseEntity<Users>(user,HttpStatus.OK);			
 	}
 	
-	@GetMapping("/admins/signin")
+	@GetMapping("/admins/signin") //http://localhost:8085/triv/auth/admins/signin
 	public ResponseEntity<Users> loginAdminHandler(Authentication auth){
 		
 		Users admin = usersService.getUserByEmail(auth.getName());

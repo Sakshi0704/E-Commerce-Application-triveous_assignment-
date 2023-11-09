@@ -14,8 +14,32 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlodalExceptionController {
 
 	
-	@ExceptionHandler(InputInvaildException.class)
-	public ResponseEntity<ErrorDetails> inputInvalidExceptionHandler(InputInvaildException ex, WebRequest wr){
+	@ExceptionHandler(DuplicateDataException.class)
+	public ResponseEntity<ErrorDetails> inputInvalidExceptionHandler(DuplicateDataException ex, WebRequest wr){
+		
+		ErrorDetails errorDetails = new ErrorDetails();
+		
+		errorDetails.setTimeStamp(LocalDateTime.now());
+		errorDetails.setMessage(ex.getMessage());
+		errorDetails.setDescription(wr.getDescription(false));
+		
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(DuplicateProductException.class)
+	public ResponseEntity<ErrorDetails> inputInvalidExceptionHandler(DuplicateProductException ex, WebRequest wr){
+		
+		ErrorDetails errorDetails = new ErrorDetails();
+		
+		errorDetails.setTimeStamp(LocalDateTime.now());
+		errorDetails.setMessage(ex.getMessage());
+		errorDetails.setDescription(wr.getDescription(false));
+		
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<ErrorDetails> inputInvalidExceptionHandler(IllegalArgumentException ex, WebRequest wr){
 		
 		ErrorDetails errorDetails = new ErrorDetails();
 		

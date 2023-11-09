@@ -20,18 +20,37 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 public class SecurityConfiguration {
+	
 	//http://localhost:8085/triv/auth/users/signup
-
+	//http://localhost:8085/triv/auth/admins/signup
+	//http://localhost:8085/triv/public/all-categories
+	//http://localhost:8085/triv/public/get-product-of-specific-category?categoryId=1
+	//http://localhost:8085/triv/public/get-product?productId=1
+	//http://localhost:8085/triv/public/all-products
+	
 	public static final String[] PUBLIC_URLS = {"/triv/auth/users/signup",
-												"/triv/auth/admins/signup",							
+												"/triv/auth/admins/signup",
+												"/triv/public/all-categories",
+												"/triv/public/get-product-of-specific-category/**",
+												"/triv/public/get-product/**",
+												"/triv/public/all-products"					
 						};
+	
 	
 	public static final String USER_ADMIN_URLS[] = { "/triv/auth/users/signin",
-									"/triv/auth/user/update"
+												   "/triv/auth/users/update-user"
 						};
 	
-	public static final String ADMIN_URLS[] = {"/triv/auth/admins/signin"
-			
+	
+	//http://localhost:8085/triv/auth/admins/signin
+	//http://localhost:8085/triv/admins/delete-user
+	//http://localhost:8085/triv/admins/save-product
+	//http://localhost:8085/triv/admins/save-category
+	public static final String ADMIN_URLS[] = {"/triv/auth/admins/signin",
+											"/triv/admins/delete-user",
+											"/triv/admins/save-category",
+											"/triv/admins/save-product"
+											
 				};
 	
 	

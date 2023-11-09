@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,11 +32,12 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer categoryId;
 	
+	@Column(unique = true,nullable = false)
 	private String categoryName;
 	
 	private String categoryDescription;
 	
-	@Column(insertable = false, nullable = false)
+	@Column(columnDefinition = "boolean default true")
 	private Boolean active;
 	
 	@CreationTimestamp
@@ -41,6 +48,7 @@ public class Category {
 	@Column(nullable = false)
 	private LocalDateTime categoryUpdatedDateTime;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "category")
 	private List<Product> listOfProducts = new ArrayList<>();
 	

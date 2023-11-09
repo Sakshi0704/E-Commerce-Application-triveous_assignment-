@@ -1,5 +1,12 @@
 package com.eapp.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,13 +17,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
 @Table(name = "Products")
 public class Product{
 
@@ -24,7 +29,16 @@ public class Product{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
 	
+	@JsonIgnore
+	@Column(unique = true,nullable = false)
+	private String uniqueName;
+	        {
+		      this.uniqueName = this.productName+"_"+this.brand;
+	         }
+	
 	private String productName;
+	
+	private String brand;
 	
 	private String productDescription;
 	
@@ -32,9 +46,10 @@ public class Product{
 	
 	private Integer stockQuantity;
 	
-	@Column(nullable = false,insertable = true)
+	private String image;
+	
+	@Column(nullable = false)
 	private Boolean avaiable;
-
 	
 	private String rating;
 	
@@ -42,7 +57,9 @@ public class Product{
 	
 	private Integer manufacturingMonth;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Category category;
 	
+	 
 }
